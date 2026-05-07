@@ -2,9 +2,9 @@ import 'react-native-gesture-handler'; // IMPORTANTE: Debe ser la primera línea
 import { Buffer } from 'buffer';
 global.Buffer = Buffer;
 import React, { useState } from 'react';
-import { 
-  StyleSheet, Text, View, TextInput, TouchableOpacity, 
-  SafeAreaView, KeyboardAvoidingView, Platform, Alert, ScrollView 
+import {
+  StyleSheet, Text, View, TextInput, TouchableOpacity,
+  SafeAreaView, KeyboardAvoidingView, Platform, Alert, ScrollView
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -14,8 +14,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 //mport { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 
 // PANTALLAS EXTERNAS
-import BranchSelection from './branches';
-import Dashboard from './dashboard';
+import BranchSelection from '.screens/branches';
+import Dashboard from '.screens/dashboard';
 
 const Stack = createStackNavigator();
 //const Drawer = createDrawerNavigator();
@@ -142,7 +142,7 @@ function LoginScreen({ navigation }) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Dashboard">
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Branches" component={BranchSelection} />
         {/* Usamos el DrawerNavigator para la pantalla de Dashboard */}
