@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-// Datos de ejemplo basados en tu imagen
 const BRANCHES = [
     { id: '1', name: 'Sucursal Centro', city: 'Ciudad de México', status: 'OK' },
     { id: '2', name: 'Sucursal Norte', city: 'Monterrey', status: 'Stock Bajo' },
@@ -24,12 +23,9 @@ const BranchCard = ({ name, city, status }) => {
     return (
         <TouchableOpacity style={styles.card} activeOpacity={0.7}>
             <View style={styles.leftSection}>
-                {/* Icono de Tienda */}
                 <View style={styles.iconContainer}>
                     <MaterialCommunityIcons name="storefront-outline" size={28} color="#305CFF" />
                 </View>
-
-                {/* Textos Informativos */}
                 <View style={styles.textContainer}>
                     <Text style={styles.branchName} numberOfLines={1}>{name}</Text>
                     <Text style={styles.branchCity}>{city}</Text>
@@ -37,7 +33,6 @@ const BranchCard = ({ name, city, status }) => {
             </View>
 
             <View style={styles.rightSection}>
-                {/* Badge de Estatus */}
                 <View style={[styles.badge, isOk ? styles.badgeOk : styles.badgeWarning]}>
                     <MaterialCommunityIcons
                         name={isOk ? "check-circle-outline" : "alert-circle-outline"}
@@ -48,8 +43,6 @@ const BranchCard = ({ name, city, status }) => {
                         {status}
                     </Text>
                 </View>
-
-                {/* Flecha indicadora */}
                 <MaterialCommunityIcons name="chevron-right" size={24} color="#CCC" />
             </View>
         </TouchableOpacity>

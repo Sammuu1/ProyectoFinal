@@ -40,19 +40,15 @@ const QuickAccessItem = ({ icon, color, title, subtitle, badge }) => (
     </TouchableOpacity>
 );
 
-// Agregamos { navigation } a los argumentos para poder abrir el menú
 export default function Dashboard({ route, navigation }) {
-    // Recuperamos los datos pasados desde la pantalla anterior
     const { branchName = 'Sucursal Seleccionada' } = route.params || {};
 
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="light-content" />
 
-            {/* Header Azul */}
             <View style={styles.header}>
                 <View style={styles.headerTop}>
-                    {/* MEJORA: Ahora abre el Drawer al dar clic */}
                     <TouchableOpacity onPress={() => navigation.openDrawer()}>
                         <MaterialCommunityIcons name="menu" size={28} color="white" />
                     </TouchableOpacity>
@@ -69,7 +65,6 @@ export default function Dashboard({ route, navigation }) {
             </View>
 
             <ScrollView contentContainerStyle={styles.scrollContent}>
-                {/* Sección de Estadísticas */}
                 <View style={styles.statsGrid}>
                     <StatCard
                         icon="package-variant"
@@ -93,11 +88,10 @@ export default function Dashboard({ route, navigation }) {
                     fullWidth
                 />
 
-                {/* Sección de Acceso Rápido */}
                 <Text style={styles.sectionTitle}>Acceso Rápido</Text>
 
                 <QuickAccessItem
-                    icon="package-variant" // CORRECCIÓN: "box-variant" no era válido
+                    icon="package-variant"
                     color="#305CFF"
                     title="Productos"
                     subtitle="Ver catálogo completo"

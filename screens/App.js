@@ -7,25 +7,21 @@ import {
   SafeAreaView, KeyboardAvoidingView, Platform, Alert, ScrollView
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-// NAVEGACIÓN
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-//mport { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
+//import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
 
-// PANTALLAS EXTERNAS
-import BranchSelection from '.screens/branches';
-import Dashboard from '.screens/dashboard';
+import BranchSelection from './branches';
+import Dashboard from './dashboard';
 
 const Stack = createStackNavigator();
 //const Drawer = createDrawerNavigator();
 
-// --- 1. DISEÑO PERSONALIZADO DEL MENÚ LATERAL ---
 function CustomDrawerContent(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
-        {/* Header del Menú */}
         <View style={drawerStyles.header}>
           <View style={drawerStyles.headerTitleRow}>
             <View style={drawerStyles.logoBox}>
@@ -36,7 +32,6 @@ function CustomDrawerContent(props) {
           <Text style={drawerStyles.brandSubtitle}>Menú principal de navegación</Text>
         </View>
 
-        {/* Info de Usuario */}
         <View style={drawerStyles.userSection}>
           <View style={drawerStyles.avatar}>
             <MaterialCommunityIcons name="account" size={24} color="#305CFF" />
@@ -47,7 +42,6 @@ function CustomDrawerContent(props) {
           </View>
         </View>
 
-        {/* Items del Menú */}
         <View style={drawerStyles.menuList}>
           <DrawerMenuItem icon="home-outline" label="Cambiar Sucursal" onPress={() => props.navigation.navigate('Branches')} />
           <DrawerMenuItem icon="view-dashboard-outline" label="Dashboard" onPress={() => props.navigation.closeDrawer()} />
@@ -68,7 +62,6 @@ function CustomDrawerContent(props) {
   );
 }
 
-// Sub-componente para los botones del menú
 const DrawerMenuItem = ({ icon, label, onPress, badge }) => (
   <TouchableOpacity style={drawerStyles.item} onPress={onPress}>
     <View style={drawerStyles.itemLeft}>
@@ -81,7 +74,6 @@ const DrawerMenuItem = ({ icon, label, onPress, badge }) => (
   </TouchableOpacity>
 );
 
-// --- 2. NAVEGADOR DEL DASHBOARD (DRAWER) ---
 /*unction DrawerNavigator() {
   return (
     <Drawer.Navigator 
@@ -93,7 +85,6 @@ const DrawerMenuItem = ({ icon, label, onPress, badge }) => (
   );
 }*/
 
-// --- 3. LOGIN SCREEN ---
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -111,11 +102,15 @@ function LoginScreen({ navigation }) {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.content}>
         <View style={styles.card}>
           <View style={styles.logoContainer}>
-            <View style={styles.iconBackground}>
-              <MaterialCommunityIcons name="package-variant-closed" size={50} color="white" />
-            </View>
+            <Image
+              source={require('../assets/logo.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
             <Text style={styles.title}>Inventario Pro</Text>
-            <Text style={styles.subtitle}>Sistema de Gestión de Inventario</Text>
+            <Text style={styles.subtitle}>
+              Sistema de Gestión de Inventario
+            </Text>
           </View>
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Correo electrónico</Text>
@@ -138,11 +133,10 @@ function LoginScreen({ navigation }) {
   );
 }
 
-// --- 4. APP PRINCIPAL ---
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Dashboard">
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Branches" component={BranchSelection} />
         {/* Usamos el DrawerNavigator para la pantalla de Dashboard */}
@@ -152,13 +146,12 @@ export default function App() {
   );
 }
 
-// --- 5. ESTILOS ---
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F8F9FA', justifyContent: 'center', alignItems: 'center' },
   content: { width: '100%', alignItems: 'center', paddingHorizontal: 20 },
   card: { width: '100%', backgroundColor: '#FFFFFF', borderRadius: 20, padding: 30, elevation: 5 },
   logoContainer: { alignItems: 'center', marginBottom: 30 },
-  iconBackground: { backgroundColor: '#305CFF', padding: 15, borderRadius: 15, marginBottom: 15 },
+  logo: { width: 100, height: 100 },
   title: { fontSize: 24, fontWeight: 'bold', color: '#1A1A1A' },
   subtitle: { fontSize: 14, color: '#666' },
   inputGroup: { marginBottom: 20 },

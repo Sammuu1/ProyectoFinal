@@ -7,7 +7,6 @@ export default function CustomDrawer(props) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
-                {/* Header del Menú */}
                 <View style={styles.header}>
                     <View style={styles.headerTitleRow}>
                         <View style={styles.logoBox}>
@@ -18,7 +17,6 @@ export default function CustomDrawer(props) {
                     <Text style={styles.brandSubtitle}>Menú principal de navegación</Text>
                 </View>
 
-                {/* Info de Usuario */}
                 <View style={styles.userSection}>
                     <View style={styles.avatar}>
                         <MaterialCommunityIcons name="account" size={24} color="#305CFF" />
@@ -29,7 +27,6 @@ export default function CustomDrawer(props) {
                     </View>
                 </View>
 
-                {/* Lista de Navegación */}
                 <View style={styles.drawerItems}>
                     <DrawerItem icon="store-outline" label="Cambiar Sucursal" onPress={() => props.navigation.navigate('Branches')} />
                     <DrawerItem icon="view-dashboard-outline" label="Dashboard" onPress={() => props.navigation.navigate('DashboardMain')} />
@@ -50,7 +47,6 @@ export default function CustomDrawer(props) {
     );
 }
 
-// Sub-componente para los items del menú
 const DrawerItem = ({ icon, label, onPress, badge }) => (
     <TouchableOpacity style={styles.item} onPress={onPress}>
         <View style={styles.itemLeft}>
