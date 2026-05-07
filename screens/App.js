@@ -27,7 +27,7 @@ function CustomDrawerContent(props) {
             <View style={drawerStyles.logoBox}>
               <MaterialCommunityIcons name="package-variant-closed" size={20} color="white" />
             </View>
-            <Text style={drawerStyles.brandTitle}>Inventario Pro</Text>
+            <Text style={drawerStyles.brandTitle}>Vault</Text>
           </View>
           <Text style={drawerStyles.brandSubtitle}>Menú principal de navegación</Text>
         </View>
@@ -109,7 +109,7 @@ function LoginScreen({ navigation }) {
               style={styles.logo}
               resizeMode="contain"
             />
-            <Text style={styles.title}>Inventario Pro</Text>
+            <Text style={styles.title}>Vault</Text>
             <Text style={styles.subtitle}>
               Sistema de Gestión de Inventario
             </Text>
