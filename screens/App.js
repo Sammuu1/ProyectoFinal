@@ -1,4 +1,4 @@
-import 'react-native-gesture-handler'; // IMPORTANTE: Debe ser la primera línea
+import 'react-native-gesture-handler';
 import { Buffer } from 'buffer';
 global.Buffer = Buffer;
 import React, { useState } from 'react';
@@ -74,7 +74,8 @@ const DrawerMenuItem = ({ icon, label, onPress, badge }) => (
   </TouchableOpacity>
 );
 
-/*unction DrawerNavigator() {
+//Comentado por errores en la implementación del drawer que impedian la ejecución de la app
+/*function DrawerNavigator() {
   return (
     <Drawer.Navigator 
       drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -84,6 +85,7 @@ const DrawerMenuItem = ({ icon, label, onPress, badge }) => (
     </Drawer.Navigator>
   );
 }*/
+
 
 function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -139,7 +141,6 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Branches" component={BranchSelection} />
-        {/* Usamos el DrawerNavigator para la pantalla de Dashboard */}
         <Stack.Screen name="Dashboard" component={Dashboard} />
       </Stack.Navigator>
     </NavigationContainer>
