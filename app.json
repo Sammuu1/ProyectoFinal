@@ -1,6 +1,6 @@
 {
   "expo": {
-    "jsEgine": "jsc",
+    "jsEngine": "jsc",
     "name": "Vault",
     "slug": "Vault",
     "version": "1.0.0",
