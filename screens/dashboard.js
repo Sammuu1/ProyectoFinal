@@ -21,8 +21,9 @@ const StatCard = ({ icon, color, value, label, fullWidth = false }) => (
     </View>
 );
 
-const QuickAccessItem = ({ icon, color, title, subtitle, badge }) => (
-    <TouchableOpacity style={styles.accessCard} activeOpacity={0.7}>
+// Added onPress prop so each card can navigate
+const QuickAccessItem = ({ icon, color, title, subtitle, badge, onPress }) => (
+    <TouchableOpacity style={styles.accessCard} activeOpacity={0.7} onPress={onPress}>
         <View style={styles.accessLeft}>
             <View style={[styles.accessIcon, { backgroundColor: color + '15' }]}>
                 <MaterialCommunityIcons name={icon} size={26} color={color} />
@@ -49,11 +50,15 @@ export default function Dashboard({ route, navigation }) {
 
             <View style={styles.header}>
                 <View style={styles.headerTop}>
-                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                        <MaterialCommunityIcons name="menu" size={28} color="white" />
+                    {/* Replaced openDrawer() with goBack() until drawer is fixed */}
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialCommunityIcons name="arrow-left" size={28} color="white" />
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.bellContainer}>
+                    <TouchableOpacity
+                        style={styles.bellContainer}
+                        onPress={() => navigation.navigate('Alertas')}
+                    >
                         <MaterialCommunityIcons name="bell-outline" size={28} color="white" />
                         <View style={styles.bellBadge}>
                             <Text style={styles.bellBadgeText}>2</Text>
@@ -95,6 +100,7 @@ export default function Dashboard({ route, navigation }) {
                     color="#305CFF"
                     title="Productos"
                     subtitle="Ver catálogo completo"
+                    onPress={() => navigation.navigate('Productos')}
                 />
 
                 <QuickAccessItem
@@ -102,6 +108,7 @@ export default function Dashboard({ route, navigation }) {
                     color="#4CAF50"
                     title="Movimientos"
                     subtitle="Registrar entrada/salida"
+                    onPress={() => navigation.navigate('Movimientos')}
                 />
 
                 <QuickAccessItem
@@ -110,6 +117,7 @@ export default function Dashboard({ route, navigation }) {
                     title="Alertas"
                     subtitle="Ver productos críticos"
                     badge="2"
+                    onPress={() => navigation.navigate('Alertas')}
                 />
             </ScrollView>
         </SafeAreaView>

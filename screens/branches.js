@@ -17,18 +17,18 @@ const BRANCHES = [
     { id: '5', name: 'Sucursal Oeste', city: 'Querétaro', status: 'Stock Bajo' },
 ];
 
-const BranchCard = ({ name, city, status }) => {
-    const isOk = status === 'OK';
+const BranchCard = ({ branch, onPress }) => {
+    const isOk = branch.status === 'OK';
 
     return (
-        <TouchableOpacity style={styles.card} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.card} activeOpacity={0.7} onPress={onPress}>
             <View style={styles.leftSection}>
                 <View style={styles.iconContainer}>
                     <MaterialCommunityIcons name="storefront-outline" size={28} color="#305CFF" />
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.branchName} numberOfLines={1}>{name}</Text>
-                    <Text style={styles.branchCity}>{city}</Text>
+                    <Text style={styles.branchName} numberOfLines={1}>{branch.name}</Text>
+                    <Text style={styles.branchCity}>{branch.city}</Text>
                 </View>
             </View>
 
@@ -40,7 +40,7 @@ const BranchCard = ({ name, city, status }) => {
                         color={isOk ? "#28A745" : "#B58105"}
                     />
                     <Text style={[styles.badgeText, isOk ? styles.textOk : styles.textWarning]}>
-                        {status}
+                        {branch.status}
                     </Text>
                 </View>
                 <MaterialCommunityIcons name="chevron-right" size={24} color="#CCC" />
@@ -49,7 +49,17 @@ const BranchCard = ({ name, city, status }) => {
     );
 };
 
-export default function BranchSelection() {
+export default function BranchSelection({ navigation }) {
+    const handleBranchSelect = (branch) => {
+        // Pass the full branch object to Dashboard
+        // When you connect your DB, Dashboard will use branchId to fetch the right data
+        navigation.navigate('Dashboard', {
+            branchId:   branch.id,
+            branchName: branch.name,
+            branchCity: branch.city,
+        });
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -61,9 +71,8 @@ export default function BranchSelection() {
                 {BRANCHES.map((branch) => (
                     <BranchCard
                         key={branch.id}
-                        name={branch.name}
-                        city={branch.city}
-                        status={branch.status}
+                        branch={branch}
+                        onPress={() => handleBranchSelect(branch)}
                     />
                 ))}
             </ScrollView>
@@ -103,7 +112,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: 15,
-        // Sombra
         elevation: 3,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
