@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     StyleSheet,
     Text,
@@ -10,6 +10,7 @@ import {
     StatusBar,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useInventario } from './Inventario';
 
 const StatCard = ({ icon, color, value, label, fullWidth = false }) => (
     <View style={[styles.statCard, fullWidth && styles.fullWidthCard]}>
@@ -42,7 +43,14 @@ const QuickAccessItem = ({ icon, color, title, subtitle, badge, onPress }) => (
 );
 
 export default function Dashboard({ route, navigation }) {
-    const { branchName = 'Sucursal Seleccionada' } = route.params || {};
+    const { branchId, branchName = 'Sucursal Seleccionada' } = route.params || {};
+    const { setSucursalId } = useInventario();
+    
+    useEffect(() => {
+        if (branchId) {
+            setSucursalId(branchId);
+        }
+    }, [branchId]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -100,7 +108,7 @@ export default function Dashboard({ route, navigation }) {
                     color="#305CFF"
                     title="Productos"
                     subtitle="Ver catálogo completo"
-                    onPress={() => navigation.navigate('Productos')}
+                    onPress={() => navigation.navigate('Productos', { branchId, branchName })}
                 />
 
                 <QuickAccessItem
@@ -108,7 +116,7 @@ export default function Dashboard({ route, navigation }) {
                     color="#4CAF50"
                     title="Movimientos"
                     subtitle="Registrar entrada/salida"
-                    onPress={() => navigation.navigate('Movimientos')}
+                    onPress={() => navigation.navigate('Movimientos', { branchId, branchName })}
                 />
 
                 <QuickAccessItem
@@ -117,7 +125,7 @@ export default function Dashboard({ route, navigation }) {
                     title="Alertas"
                     subtitle="Ver productos críticos"
                     badge="2"
-                    onPress={() => navigation.navigate('Alertas')}
+                    onPress={() => navigation.navigate('Alertas', { branchId, branchName })}
                 />
             </ScrollView>
         </SafeAreaView>
