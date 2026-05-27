@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 import { useInventario } from './Inventario';
 
-// ─── Constants ────────────────────────────────────────────────────────────────
 const CATEGORIAS = ['Todas', 'Masas', 'Salsas', 'Carnes', 'Lácteos'];
 
 const STATUS_CONFIG = {
@@ -20,7 +19,6 @@ const getStatus = (stock, minimo) => {
     return 'ok';
 };
 
-// ─── Product Card ─────────────────────────────────────────────────────────────
 const ProductCard = ({ item, onPress }) => {
     const status = getStatus(item.stock, item.minimo);
     const cfg = STATUS_CONFIG[status];
@@ -51,9 +49,8 @@ const ProductCard = ({ item, onPress }) => {
     );
 };
 
-// ─── Main Screen ──────────────────────────────────────────────────────────────
 export default function Products({ navigation, route }) {
-    const { productos } = useInventario(); // ← live from context, auto-refreshes
+    const { productos } = useInventario(); 
     const [search, setSearch] = useState('');
     const [categoria, setCategoria] = useState('Todas');
     const { userData } = route.params || {};
@@ -65,7 +62,7 @@ export default function Products({ navigation, route }) {
             const matchSearch = p.nombre.toLowerCase().includes(search.toLowerCase());
             return matchCat && matchSearch;
         });
-    }, [productos, search, categoria]); // productos in deps → rerenders on every add
+    }, [productos, search, categoria]); 
 
     return (
         <SafeAreaView style={styles.safe}>
@@ -132,7 +129,6 @@ export default function Products({ navigation, route }) {
                 renderItem={({ item }) => (
                     <ProductCard
                         item={item}
-                        onPress={p => navigation?.navigate('DetalleProducto', { producto: p })}
                     />
                 )}
                 contentContainerStyle={styles.listContent}
@@ -148,7 +144,6 @@ export default function Products({ navigation, route }) {
     );
 }
 
-// ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
     safe: { flex: 1, backgroundColor: '#F5F5F5' },
 

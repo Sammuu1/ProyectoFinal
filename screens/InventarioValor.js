@@ -6,7 +6,6 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useInventario } from './Inventario';
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 const fmt = (n) => `$${Number(n || 0).toFixed(2)}`;
 
 const pct = (margen, costoTotal) => {
@@ -14,7 +13,6 @@ const pct = (margen, costoTotal) => {
     return ((margen / costoTotal) * 100).toFixed(1);
 };
 
-// ─── Product Value Card ───────────────────────────────────────────────────────
 const ProductCard = ({ item }) => {
     const stock = Number(item.stock || 0);
     const minimo = Number(item.minimo || 0);
