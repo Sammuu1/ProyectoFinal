@@ -52,10 +52,12 @@ const ProductCard = ({ item, onPress }) => {
 };
 
 // ─── Main Screen ──────────────────────────────────────────────────────────────
-export default function Products({ navigation }) {
+export default function Products({ navigation, route }) {
     const { productos } = useInventario(); // ← live from context, auto-refreshes
     const [search, setSearch] = useState('');
     const [categoria, setCategoria] = useState('Todas');
+    const { userData } = route.params || {};
+    const isAdmin = userData?.role === 'admin';
 
     const filtered = useMemo(() => {
         return productos.filter(p => {
@@ -74,12 +76,18 @@ export default function Products({ navigation }) {
                     <Text style={styles.backArrow}>←</Text>
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>Productos</Text>
-                <TouchableOpacity
-                    style={styles.addBtn}
-                    onPress={() => navigation?.navigate('AgregarProducto')}
-                >
-                    <Text style={styles.addBtnText}>＋</Text>
-                </TouchableOpacity>
+                {isAdmin && (
+                    <TouchableOpacity
+                        style={styles.addBtn}
+                        onPress={() =>
+                            navigation?.navigate('AgregarProducto', {
+                                userData,
+                            })
+                        }
+                    >
+                        <Text style={styles.addBtnText}>＋</Text>
+                    </TouchableOpacity>
+                )}
             </View>
 
             <View style={styles.searchContainer}>

@@ -12,7 +12,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
  
-// ─── Branch Card ──────────────────────────────────────────────────────────────
 const BranchCard = ({ branch, onPress }) => {
     const isOk = branch.status === 'OK';
  
@@ -45,15 +44,13 @@ const BranchCard = ({ branch, onPress }) => {
     );
 };
  
-// ─── Main Screen ──────────────────────────────────────────────────────────────
-export default function BranchSelection({ navigation }) {
+export default function BranchSelection({ navigation, route }) {
     const [branches, setBranches] = useState([]);
     const [loading,  setLoading]  = useState(true);
     const [error,    setError]    = useState(null);
  
     useEffect(() => {
-        // onSnapshot gives real-time updates —
-        // if you add/edit a branch in Firebase it updates instantly in the app
+        
         const unsubscribe = onSnapshot(
             collection(db, 'sucursales'),
             (snapshot) => {
@@ -71,19 +68,18 @@ export default function BranchSelection({ navigation }) {
             }
         );
  
-        // Cleanup listener when screen unmounts
         return () => unsubscribe();
     }, []);
  
     const handleBranchSelect = (branch) => {
         navigation.navigate('Dashboard', {
-            branchId:   branch.id,
+            branchId: branch.id,
             branchName: branch.name,
             branchCity: branch.city,
+            userData: route.params?.userData,
         });
     };
  
-    // Loading state
     if (loading) {
         return (
             <SafeAreaView style={styles.centered}>
@@ -93,7 +89,6 @@ export default function BranchSelection({ navigation }) {
         );
     }
  
-    // Error state
     if (error) {
         return (
             <SafeAreaView style={styles.centered}>
@@ -132,7 +127,6 @@ export default function BranchSelection({ navigation }) {
     );
 }
  
-// ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
     container: {
         flex: 1,
